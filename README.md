@@ -22,14 +22,14 @@ By multiplying the universal specific membrane capacitance ($1\ \mu F / cm^{2}$)
 ## 3. Hardware Architecture
 The system is designed on a 2-layer Printed Circuit Board (PCB) using KiCad, featuring an unbroken ground plane on the bottom layer to ensure signal integrity for the analog pathways. Trace widths are constrained to 0.25 mm with 0.20 mm clearances to accommodate the dense IC placement.
 
-![KiCad Schematic](images/kicad_schematic.png)
+![KiCad Schematic](Images/kicad_schematic.png)
 
 The architecture is divided into three core functional blocks:
 * **Soma:** Represented by the central capacitor. The accumulation and discharge of charge on this component physically represent the resting potential and action potentials (spikes).
 * **Voltage-Controlled Channels:** Built using TL072 operational amplifiers (acting as integrators for gating variables) and MPY634 precision analog multipliers. The multipliers physically execute the non-linear conductance equations (e.g., $m^3h$ for Na and $n^4$ for K).
 * **Stimulus (STIM) and Threshold (THRESH):** External input ports for injecting nanoampere-level synaptic currents and a leakage resistor network to maintain the resting potential at approximately -65 mV.
 
-![2D PCB Layout](images/2d_pcb_layout.png)
+![2D PCB Layout](Images/2d_pcb_layout.png)
 
 ## 4. Simulation and Ground Truth
 Prior to hardware manufacturing, the extracted parameters were simulated in two distinct environments to verify the mathematical model against the electronic implementation.
@@ -37,12 +37,12 @@ Prior to hardware manufacturing, the extracted parameters were simulated in two 
 ### Mathematical Ground Truth (Python/SciPy)
 The standard HH differential equations were solved using numerical integration to establish the baseline biological response. Under a 0.2 nA stimulus, the mathematical model exhibits precise spiking behavior.
 
-![Python Ground Truth](images/python_ground_truth.png)
+![Python Ground Truth](Images/python_ground_truth.png)
 
 ### Analog Circuit Simulation (LTspice)
 The physical hardware schematic was simulated in LTspice. The resulting transient analysis waveforms confirm that the analog components successfully replicate the action potentials, matching the mathematical ground truth and proving the viability of the physical circuit.
 
-![LTspice Simulation](images/ltspice_simulation.png)
+![LTspice Simulation](Images/ltspice_simulation.png)
 
 ## 5. Repository Structure
 * `/hardware`: Contains KiCad PCB design files and LTspice simulation models.
