@@ -1,6 +1,6 @@
 # Analog Hardware Simulation of the Hodgkin-Huxley Neuron Model
 
-![3D PCB Render](images/3d_pcb_front.png)
+![3D PCB Render](Images/3d_pcb_front.png)
 
 ## 1. Project Overview and Purpose
 This repository contains the design, simulation, and manufacturing files for an analog computational hardware that physically models the Hodgkin-Huxley (HH) biological neuron. The primary objective is to transition neuro-biophysical concepts from theoretical mathematics into a tangible engineering prototype.
