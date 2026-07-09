@@ -1,0 +1,34 @@
+* Hodgkin-Huxley Neuron Model (Corrected Polarities!)
+
+* 1. HÜCRE ZARI VE SIZINTI KANALI (Akım hücreden dışarı/toprağa akmalı: V_soma -> 0)
+C1 V_soma 0 11.5p IC=-65m
+G_L V_soma 0 VALUE={3.444n * (V(V_soma)-(-54.387m))}
+
+* 2. SODYUM (Na) KANALI
+G_Na V_soma 0 VALUE={1.3776u * pow(limit(V(V_m),0,1),3) * limit(V(V_h),0,1) * (V(V_soma)-50m)}
+
+* 3. POTASYUM (K) KANALI
+G_K V_soma 0 VALUE={0.4133u * pow(limit(V(V_n),0,1),4) * (V(V_soma)-(-77m))}
+
+* 4. M KAPI DEĞİŞKENİ (Akım integrali doldurmak için içeri girmeli: 0 -> V_m)
+C_m V_m 0 1m IC=0.0529
+G_m 0 V_m VALUE={(0.1*(V(V_soma)*1000+40.0001)/(1-exp(-(V(V_soma)*1000+40.0001)/10)))*(1-V(V_m))-(4*exp(-(V(V_soma)*1000+65)/18))*V(V_m)}
+R_m V_m 0 1G
+
+* 5. H KAPI DEĞİŞKENİ
+C_h V_h 0 1m IC=0.596
+G_h 0 V_h VALUE={(0.07*exp(-(V(V_soma)*1000+65)/20))*(1-V(V_h))-(1/(1+exp(-(V(V_soma)*1000+35)/10)))*V(V_h)}
+R_h V_h 0 1G
+
+* 6. N KAPI DEĞİŞKENİ
+C_n V_n 0 1m IC=0.318
+G_n 0 V_n VALUE={(0.01*(V(V_soma)*1000+55.0001)/(1-exp(-(V(V_soma)*1000+55.0001)/10)))*(1-V(V_n))-(0.125*exp(-(V(V_soma)*1000+65)/80))*V(V_n)}
+R_n V_n 0 1G
+
+* 7. UYARI AKIMI (0.2 nanoAmper / 10ms - 40ms arası. Uyarı akımı hücreye girmeli: 0 -> V_soma)
+I1 0 V_soma PULSE(0 0.2n 10m 1u 1u 30m 100m)
+
+* 8. SPICE SİMÜLASYON AYARLARI
+.tran 0 50m 0 10u
+.options method=gear reltol=1e-4 maxstep=10u
+.end
